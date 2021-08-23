@@ -1,0 +1,23 @@
+{
+    "name": "helloworld",
+    "description": "Simple hello world sample in Node",
+    "version": "1.0.0",
+    "private": true,
+    "main": "index.js",
+    "scripts": {
+      "dev": "env $(grep -v '^#' .env) nodemon index.js",
+      "start": "env $(grep -v '^#' .env) node index.js",
+      "delete-old-staging-tags": "git fetch --tags && git push origin --delete $(git tag -l 'staging-*') || true && git fetch origin --prune 'refs/tags/*:refs/tags/*'",
+      "staging:deploy": "yarn delete-old-staging-tags && TAG=`echo staging-$(date +%Y%m%d-%H%M%S)` && git tag $TAG && git push origin $TAG"
+    },
+    "engines": {
+      "node": ">= 12.0.0"
+    },
+    "author": "Google LLC",
+    "license": "Apache-2.0",
+    "dependencies": {
+      "express": "^4.17.1",
+      "knex": "^0.17.1",
+      "mysql": "^2.17.1"
+    }
+  }
